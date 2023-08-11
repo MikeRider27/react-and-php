@@ -1,10 +1,10 @@
 version: '3.8'
 services:
-  silcsp:
+  apache-php:
     build:
       context: ./src/backend
       dockerfile: Dockerfile-php
-    container_name: silcsp
+    container_name: apache-php
     restart: always
     volumes:
       - ./src/backend:/var/www/html/
