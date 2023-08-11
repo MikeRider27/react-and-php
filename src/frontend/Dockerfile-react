@@ -1,0 +1,12 @@
+# Usa una imagen base con Node.js preinstalado
+FROM node:14 as build
+
+# Establece el directorio de trabajo en la imagen
+WORKDIR /app
+
+# Instala las dependencias
+COPY package*.json /app/
+RUN npm install
+
+# Inicia la aplicación de React en modo desarrollo
+CMD ["npm", "start"]

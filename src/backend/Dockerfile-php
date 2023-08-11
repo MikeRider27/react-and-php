@@ -1,0 +1,28 @@
+# Establecemos la nueva imagen base
+FROM php:8.0-apache
+
+# Actualizamos e instalamos los paquetes necesarios en un solo comando
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libpng-dev \
+    gcc \
+    make \
+    autoconf \
+    libc-dev \
+    pkg-config \
+    libyaml-dev
+
+# Instalamos y activamos la extensión yaml
+RUN pecl install yaml-2.2.1 && docker-php-ext-enable yaml
+
+# Instalamos las extensiones PHP necesarias
+RUN docker-php-ext-install pgsql pdo_pgsql gd
+
+# Activamos el módulo rewrite en Apache
+RUN a2enmod rewrite
+
+# Limpieza: eliminamos archivos temporales y limpiamos cachés
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+
